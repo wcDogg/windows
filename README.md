@@ -1,2 +1,3 @@
-# windows
-Windows 11 Pro installation &amp; environment notes.
+# Windows 11 Pro
+
+Installation &amp; environment notes.
