@@ -4,8 +4,9 @@
 
 ## Extensions
 
-* PowerShell (Microsoft) whentever. 
+* PowerShell (Microsoft) 
 * Python (Microsoft)
+* Pylance (Micorosoft)
 * Markdown All in One (Yu Zhang)
 * Language Tools (Adam Voss)
 * English Support for LT (Adam Voss)
