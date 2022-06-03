@@ -4,7 +4,9 @@ May 2022
 
 Microsoft Security: [Guidance for CVE-2022-30190 Microsoft Support Diagnostic Tool Vulnerability](https://msrc-blog.microsoft.com/2022/05/30/guidance-for-cve-2022-30190-microsoft-support-diagnostic-tool-vulnerability/)
 
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/gmP8AtmVr0o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 * This is a zero-day, application remote execution exploit.
 * It effects Microsoft Support Diagnostic Tool.
