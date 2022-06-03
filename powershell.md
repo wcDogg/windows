@@ -6,10 +6,14 @@
 KeyClip
 KeyShow
 
+ProAllCode
 Code $profile.AllUsersAllHosts
+ProAllNP
 notepad $profile.AllUsersAllHosts
 
+ProMeCode
 Code $Home\Documents\PowerShell\Profile.ps1
+ProMeNP
 notepad $Home\Documents\PowerShell\Profile.ps1
 ```
 
@@ -157,6 +161,13 @@ if ($sshAgentStopped) {
   Write-Host "SSH Agent is running."
   #Get-Service ssh-agent
 }
+
+# Open this profile in VS Code
+function ProAllCode {Code $PROFILE.AllUsersAllHosts}
+
+# Open this profile in Notepad
+function ProAllNP {notepad $PROFILE.AllUsersAllHosts}
+
 ```
 
 ### $Home\Documents\PowerShell\Profile.ps1
@@ -171,6 +182,12 @@ function KeyClip {
 function KeyShow {
   Get-Content C:\Users\wcd\.ssh\id_wcd_ed25519.pub
 }
+
+# Open this profile in VS Code
+function ProMeCode {Code $Home\Documents\PowerShell\Profile.ps1}
+
+# Open this profile in Notepad
+function ProMeNP {notepad $Home\Documents\PowerShell\Profile.ps1}
 ```
 
 ## Learn More

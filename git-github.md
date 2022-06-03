@@ -8,10 +8,7 @@ These instructions are specific to OpenSSH and assume you have already created y
 
 See: [Windows 11 Pro OpenSSH](windows-11-pro-openSSH.md)
 
-Additionally, if you have configured your [PowerShell profile](powershell.md) as suggested, you can use `KeyShow` and `KeyClip` to access your public key. 
-
-Otherwise, your public key should be located in this folder: `C:\Users\user\.ssh\`
-
+Your public key should be located in `C:\Users\user\.ssh\`. A key in this location will be automatically detected during GitHub authentication.
 
 ## GitHub Emails
 
@@ -24,6 +21,8 @@ Otherwise, your public key should be located in this folder: `C:\Users\user\.ssh
 This sets your commit address to `username@users.noreply.github.com`
 
 ## GitHub SSH Key
+
+This step is NOT necessary - just noting where keys wind up. 
 
 1. User menu > Settings 
 1. Left panel > Access: SSH & GPG Keys > New SSH key
@@ -38,7 +37,6 @@ This sets your commit address to `username@users.noreply.github.com`
 5. Check the boxes for these scopes: `repo`, `workflow`, `read:org`. 
 6. Click Generate Token. Copy it to a (`.env`) or password manager.
 
-
 ## Install Git
 
 Here is a slideshow of the settings I used: 
@@ -47,7 +45,7 @@ Here is a slideshow of the settings I used:
 
 ## Bash
 
-Instructions can be performed in any terminal that understands Bash. This does not include Windows PowerShell. This does include:
+Instructions can be performed in any terminal that understands Bash. This does NOT include Windows PowerShell. This does include:
 
 * [PowerShell](https://github.com/PowerShell/PowerShell)
 * Windows Command Prompt 
@@ -70,7 +68,7 @@ git config --global --list
 
 [GitHub CLI](https://cli.github.com/)
 
-For this step you will need your GitHub username and the access token generated in a previous step. 
+For this step you will need your GitHub username and personal access token 
 
 ```
 gh auth login
@@ -78,6 +76,7 @@ gh auth login
 ? What account do you want to log into? GitHub.com
 ? What is your preferred protocol for Git operations? SSH
 ? Generate a new SSH key to add to your GitHub account? No
+? TODO the propmt here auto-detects keys stored at `C:\Users\user\.ssh\` - select it.
 ? How would you like to authenticate GitHub CLI? Paste an authentication token
 ? Paste your authentication token: ****************************************
 - gh config set -h github.com git_protocol ssh
