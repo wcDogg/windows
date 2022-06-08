@@ -17,3 +17,8 @@ A tech writer's decent into madness. Getting Windows 11 Pro ready for OSINT.
 * Slack + Trello
 * 
 
+
+## File Explorer
+
+View > Show > Hidden Files & Folders
+
