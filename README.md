@@ -14,6 +14,8 @@ A tech writer's decent into madness. Getting Windows 11 Pro ready for OSINT.
 * [OpenSSH](windows-11-pro-openSSH.md)
 * [Git + GitHub](git-for-windows.md)
 * [Python](https://github.com/DoggSoup/python)
+* [Chocolatey](chocolatey.md)
+* [Vim Editor](vim.md)
 * Slack + Trello
 * 
 
