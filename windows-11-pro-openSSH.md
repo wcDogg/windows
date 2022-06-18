@@ -158,8 +158,6 @@ To use the key pair, the contents of the public key need to be placed into a tex
 * The ACL on this file must restrict access to administrators and System.
 * You will need your Windows account password for this step.
 
-Make sure that the .ssh directory exists for the current user:  
-
 ```
 # Check for / create .ssh directory for current user.
 ssh wcd@wcdPC mkdir C:\ProgramData\ssh\
@@ -167,8 +165,13 @@ ssh wcd@wcdPC mkdir C:\ProgramData\ssh\
 # Windows password
 # Confirmation message
 
+# OPTION 1: First key
 # Use `scp` to copy puhlic key to SSH server.
 scp C:\Users\wcd\.ssh\id_wcd_ed25519.pub wcd@wcdPC:C:\ProgramData\ssh\administrators_authorized_keys
+
+# OPTION 2: A second or subsequent key
+# Append new public key to authorized_keys
+cat C:\Users\wcd\.ssh\id_wcd_rsa4096.pub >> C:\ProgramData\ssh\administrators_authorized_keys
 
 # Account passowrd
 # Displays public key file name as confirmation
