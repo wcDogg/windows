@@ -3,16 +3,17 @@
 ## Quick Grab
 
 ```
-KeyClip
-KeyShow
+NAS
 
 ProAllCode
 Code $profile.AllUsersAllHosts
+
 ProAllNP
 notepad $profile.AllUsersAllHosts
 
 ProMeCode
 Code $Home\Documents\PowerShell\Profile.ps1
+
 ProMeNP
 notepad $Home\Documents\PowerShell\Profile.ps1
 ```
@@ -173,15 +174,8 @@ function ProAllNP {notepad $PROFILE.AllUsersAllHosts}
 ### $Home\Documents\PowerShell\Profile.ps1
 
 ```
-# Copy public key to clipboard
-function KeyClip {
-  Get-Content C:\Users\wcd\.ssh\id_wcd_ed25519.pub | clip
-}
-
-# Show public key in terminal
-function KeyShow {
-  Get-Content C:\Users\wcd\.ssh\id_wcd_ed25519.pub
-}
+# SSH to NAS
+function NAS {ssh user@192.168.1.xxx -pxxxxx}
 
 # Open this profile in VS Code
 function ProMeCode {Code $Home\Documents\PowerShell\Profile.ps1}
