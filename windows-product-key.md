@@ -2,9 +2,9 @@
 
 **Do I own my Operating System?**
 
-I'm old enough to remember installing my OS from floppy discs or a CD. On the disk envelope there was a sticker with the licence key. You had to hang on to that disc & key for when you royaly screwed up & needed to reinstall. I had 2 disc binders full of them. 
+I'm old enough to remember installing my OS from floppy discs or a CD. On the disk envelope there was a sticker with the license key. You had to hang on to that disc & key for when you royaly screwed up & needed to reinstall. I had 2 disc binders full of them. 
 
-Discs are still a thing, but nou we can download an OS & purchase a key online. You still need to hang on to the key, but you can dowload as needed. 
+Discs are still a thing, but nou we can download an OS & purchase a key online. You still need to hang on to the key, but you can download as needed. 
 
 Today I'm setting up my new computer. It came with Windows 11 Pro already installed and ready to activate. My invoice has a line item for the OS. That got me thinking ... Where's my license key? What happens if I need to reinstall? Can I deactivate it on this computer and use in on another? 
 
@@ -14,24 +14,24 @@ One of my first search results was this [Microsoft Community post](https://answe
 
 When you reinstall the same OS edition - Home, Pro, Enterprise - on the same PC, Windows will self-activate once the PC is connected to the Internet. 
 
-This is essenitally true, but there's something missing...
+This is essentially true, but there's something missing...
 
 ## Transfer Product Key
 
-Depending on how your key was obtained, you may be able to transfer it to another compter. 
+Depending on how your key was obtained, you may be able to transfer it to another computer. 
 
 * Software installed by the PC manufacturer use OEM licenses and are not transferable. 
 * Software and upgrades you purchase are transferable. 
 
-Which leaves me where exactly? According to my invoice, I paid for Windows 11 Pro but the manufacturer installed it. And apparently, if your OS is eligible for transfer, you need a Microsoft account to deacivate it on the old device and activate it on the new. 
+Which leaves me where exactly? According to my invoice, I paid for Windows 11 Pro but the manufacturer installed it. And apparently, if your OS is eligible for transfer, you need a Microsoft account to deactivate it on the old device and activate it on the new. 
 
-But wait! Windows 11 Pro lets you [use a local account](windows-11-pro-local-account.md), which is what I did. I don't have a Micorsoft account to peroform this proceedure. 
+But wait! Windows 11 Pro lets you [use a local account](windows-11-pro-local-account.md), which is what I did. I don't have a Microsoft account to perform this procedure. 
 
 ## Locate Product Key
 
 This got me thinking about the digital licencing explanation above. Your hardware creates an ID for the PC and sends it to Microsoft. But what would they do with just a PC identifier when you could be activating any number of Microsoft products? 
 
-Either the server is OS-specific and only needs the PC identifier. Or it's a general activation server and what's being sent maps the PC idnetifier to OS key. If that's true, the mapping is being done by my hardware. Would this mean the OS key is on my machine? 
+When my PC contacts MS for activation, it has to be sending not only a device identifier, but a product identifier, right? If that's true, wouldn't this mean the OS key is already on my machine?
 
 Turns out it is. From an elevated terminal: 
 

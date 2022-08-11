@@ -11,7 +11,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 choco --version
 ```
 
-TODO: add tab compltetion to PS profile.
+TODO: add tab completetion to PS profile.
 ```
 WARNING: Not setting tab completion: Profile file does not exist at 'C:\Users\wcd\Documents\PowerShell\Microsoft.PowerShell_profile.ps1'.
 ```

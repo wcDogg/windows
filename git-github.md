@@ -50,8 +50,8 @@ Instructions can be performed in any terminal that understands Bash. This does N
 * [PowerShell](https://github.com/PowerShell/PowerShell)
 * Windows Command Prompt 
 * Windows Terminal with Bash profile
-* VS Code Bash terminal
 * Git Bash terminal 
+* VS Code integrated Bash terminal
 
 ## Configure Git Profile
 

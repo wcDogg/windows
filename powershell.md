@@ -20,7 +20,7 @@ notepad $Home\Documents\PowerShell\Profile.ps1
 
 ## Install PowerShell
 
-Be sure to check the options for adding to PATH and VS Code.
+Be sure to check the options for adding to `$PATH` and VS Code.
 
 * GitHub: [PowerShell](https://github.com/PowerShell/PowerShell)
 * Microsoft: [Install PowerShell on Windows, Linux, and macOS](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2)
@@ -168,7 +168,6 @@ function ProAllCode {Code $PROFILE.AllUsersAllHosts}
 
 # Open this profile in Notepad
 function ProAllNP {notepad $PROFILE.AllUsersAllHosts}
-
 ```
 
 ### $Home\Documents\PowerShell\Profile.ps1

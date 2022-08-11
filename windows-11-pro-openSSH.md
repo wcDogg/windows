@@ -2,11 +2,11 @@
 
 Logging into remote services with a username & password is vulnerable to eavesdropping, connection hijacking, brute force, and other attacks.
 
-OpenSSH uses the SSH protocol for remote login. It uses key pairs for authenticantion and to encrypt all traffic between client and server. Built-in SSH has always been a Linux thing. Windows 10 and higher also supports OpenSSH. Git and other popular services support & recommend SSH. 
+OpenSSH uses the SSH protocol for remote login. It uses key pairs for authentication and to encrypt all traffic between client and server. Built-in SSH has always been a Linux thing. Windows 10 and higher also supports OpenSSH. Git and other popular services support & recommend SSH. 
 
 ## Scenario
 
-Microsoft refences are listed below. This is the first time I'm setting up SSH and I was happy to discover that the steps are easy to follow. Everything worked for me with one small exception that's noted. What follows are the scenario-specific steps that I took. 
+Microsoft references are listed below. This is the first time I'm setting up SSH and I was happy to discover that the steps are easy to follow. Everything worked for me with one small exception that's noted. What follows are the scenario-specific steps that I took. 
 
 Most relevant is that I am the only user on my machine and that I'm an admin user. It doesn't matter that I have a [local account](windows-11-pro-local-account.md) vs a Microsoft account. 
 
@@ -68,7 +68,7 @@ if (Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyConti
 
 ## Confirm user and machine names
 
-In the following steps you be using `username@servername`. For a single user on a single PC, this is your Windows account username and your PC's name. You can use these to confirm: 
+In the following steps, use `username@servername`. For a single user on a single PC, this is your Windows account username and your PC's name - wcd@wcdPC. You can use these to confirm: 
 
 ```
 $env:USERNAME
@@ -111,20 +111,21 @@ Continue in same shell connected to the SSH server. Your prompt should look like
 
 Before starting: 
 
-1. Decide the encryption algorithm - Ed25519.
+1. Identify the encryption algorithm needed - for GitHub it's Ed25519.
 2. Decide a file name - `id_wcd_ed25519`.
 3. Decide a passphrase to encrypt private key.
-4. Preapare a passoword manager entry. Use this to store the key's passphrase and SHA256 fingerprint.
+4. Prepare a password manager entry. Use this to store the key's passphrase and SHA256 fingerprint.
 
 To generate a key pair: 
 
 1. Use the command below. Follow prompts to set file and passphrase.
 2. Create file in the default `C:\Users\wcd\.ssh/` folder. Note the `/`.
 3. The result is a public key, a private key, and a SHA256 fingerprint + randomart.  
-4. Add passprhase and SHA256 fingerprint to a password manager. 
+4. Add passphrase and SHA256 fingerprint to a password manager. 
 
 ```
 ssh-keygen -t ed25519
+
 # C:\Users\wcd\.ssh/id_wcd_ed25519
 # Create passphrase for private key file
 ```
@@ -204,8 +205,4 @@ Get-Content C:\Users\wcd\.ssh\id_wcd_ed25519.pub
 ## Start SSH Agent when PowerShell Loads
 
 See [Powershell > My Profile](powershell.md#my-profile) for how to create a profile. Includes my current profile that starts SSH Agent automatically and has functions to copy/display public key. 
-
-## What's Next?
-
-I've never used SSH. I was installing Git for Windows when I saw the option to use OpenSSH. My next step is to finish installing and see if I can get it working. See [Git for Windows](git-for-windows.md)). 
 

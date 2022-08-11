@@ -38,7 +38,7 @@ Noto Sans Mono is a static font. Next I wanted to know if the newer variable fon
 
 Now I've got 2 fonts that are automatically available to Windows terminals and 1 that isn't - why?
 
-I broadly understand that fonts come in different file formats and contain data beyond the glyphs. And I always account for the possibility it's some weird thing with Microsoft. A few Google dorks later and I had a list of popular fonts with the same issue plus a list of technical requirements a font must meet to be available in terminals.  
+I broadly understand that fonts come in different file formats and contain data beyond the glyphs. And I always account for the possibility it's some weird thing with Microsoft. A few Google dorks later and I had a list of popular fonts with the same issue, plus a list of technical requirements a font must meet to be available in terminals.  
 
 I don't understand all of these requirements. Here I'm just trying to gather some information that might help the foundry fix the issue. 
 
@@ -113,7 +113,7 @@ The skill I value most is an ability to navigate & solve problems in unfamiliar 
 
 I had to reject a lot of what's on the Internet. What got me going is my conviction that editing registries or dinking with `fontconfig` files just shouldn't be necessary and don't count as solutions. The thing that stood out for me is that not a single post about these "solutions" included an explanation of what it was actually fixing. That told me I needed to formulate my own sense of the problem if I were to find a real answer. 
 
-I had to do some of the work. I knew from the start I'd be reporting this issue to someone. I have years of experience writing & responding to bug reports. I understand how to keep things concise & relevant and how to generate the good will you sometimes need to get things done. 
+I had to do some of the work. I knew from the start I'd be reporting this issue to someone. I have years of experience writing & responding to bug reports. I understand how to keep things concise & relevant, and how to generate the good will you sometimes need to get things done. 
 
 I was lucky to work with a responsive foundry. Even if that weren't true, you should know that what you report & how you report it absolutely effects the attention you'll get. 
 

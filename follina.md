@@ -7,7 +7,7 @@ YouTube: [Dave's Garage: New Windows Zero-Day Exploit - How to protect your PC f
 * This is a zero-day, application remote execution exploit.
 * It effects Microsoft Support Diagnostic Tool.
 * This tool is part of Microsoft Office.
-* When you open an infected Microsoft document, a maliciaous template is downloaded and exectuted. 
+* When you open an infected Microsoft document, a malicious template is downloaded and executed. 
 * The approved workaround is to backup then delete the `HKEY_CLASSES_ROOT\ms-msdt` registry.
 
 ## Backup and Delete

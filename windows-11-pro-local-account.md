@@ -34,4 +34,3 @@ You can prevent Windows from storing a LM hash of your passwords by enabling a G
 1. Start > Edit Group Policies 
 2. Computer Configuration > Windows Settings > Security Settings > Local Policies > Security Options
 3. Enable this policy: **Network security: Do not store LAN Manager hash value on next password change**
-
