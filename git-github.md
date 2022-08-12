@@ -84,16 +84,6 @@ gh auth login
 ✓ Logged in as wcDogg
 ```
 
-## Basic Git Commands
-
-```
-# Clone existing repo
-git clone https://github.com/SqueezeSoftware/JSONpie.git
-
-# Stage + commit changes
-git add . && git commit -m "commit message"
-```
-
 ## New Repo from Local Directory
 
 See: [Adding an existing project to GitHub using the command line](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line)
@@ -133,5 +123,102 @@ Initialized empty Git repository in D:/GitHub/test/.git/
 ✓ Added remote git@github.com:wcDogg/test.git
 ? Would you like to push commits from the current branch to "origin"? Yes
 ✓ Pushed commits to git@github.com:wcDogg/test.git
+```
+
+## Basic Git Commands
+
+* https://www.youtube.com/watch?v=apGV9Kg7ics
+* https://www.youtube.com/watch?v=SD7YNLv5Evc
+
+```
+# Clone existing repo
+git clone https://github.com/SqueezeSoftware/JSONpie.git
+
+# See the status of changes
+git status
+
+# Stage all changes
+git add .
+
+# Stage a file
+git add README.md
+
+# Remove file from stage
+git restore --staged README.md
+
+# Commit 
+git commit -m "Commit message"
+
+# Stage + commit all changes
+git add . && git commit -m "commit message"
+
+# Push changes to current branch
+git push
+
+# Push changes to a different branch
+git push origin branchname
+
+# View commit history
+git log
+
+# See the contents of a file
+cat README.md
+```
+
+## Revert to an Earlier Commit not yet Pushed
+
+```
+# Get the commit's ID
+git log
+
+# Revert
+git reset f73d30fa32fd393813714c533357447f435d3f06
+
+# View un-staged changes
+git status
+```
+
+## Stashing Changes 
+
+```
+# Stage what will be stashed
+git add .
+
+# Review
+git status
+
+# Stash 
+git stash
+
+# Bring stashed back
+git stash pop
+
+# Discard stashed - permanent + irreversible
+git stash clear
+```
+
+## Connect an Existing Repo to Existing Local Directory
+
+```
+# Connect - 'origin' is the 'name' of this URL
+remote add origin <repo URL>
+
+# View all of the URLs associated with a repo
+git remote -v
+```
+
+## Branching
+
+```
+# Create a branch
+git branch branchname
+
+# Switch to the new branch
+git checkout branchname
+
+# Merge branch to main
+git merge branchname
+
+
 ```
 
