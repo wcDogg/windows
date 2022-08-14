@@ -76,7 +76,7 @@ gh auth login
 ? What account do you want to log into? GitHub.com
 ? What is your preferred protocol for Git operations? SSH
 ? Generate a new SSH key to add to your GitHub account? No
-? TODO the propmt here auto-detects keys stored at `C:\Users\user\.ssh\` - select it.
+? TODO the prompt here auto-detects keys stored at `C:\Users\user\.ssh\` - select it.
 ? How would you like to authenticate GitHub CLI? Paste an authentication token
 ? Paste your authentication token: ****************************************
 - gh config set -h github.com git_protocol ssh
@@ -88,41 +88,36 @@ gh auth login
 
 See: [Adding an existing project to GitHub using the command line](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line)
 
-```
-# Copy a local folder (template)
-Copy-Item -Path "D:\github\.project" -Destination "D:\github\pngsqu" -recurse -Force
+```powershell
+# Create directory 
+New-Item -Path 'D:\GitHub\my-project' -ItemType Directory
+cd D:\GitHub\my-project
 
-# cd to the new directory and view contents
-cd D:\github\test
+
+
+# Use a template or: 
+# Add README.md
+# Add .gitignore
+# Add license
+
+# View contents
 Get-ChildItem
 
 # Create the repo
 git init -b main
-git add . && git commit -m "initial commit"
+git add . && git commit -m "Initial commit"
+git status
 gh repo create
 
-# Follow these prompts
-Initialized empty Git repository in D:/GitHub/test/.git/
-
+# Follow the prompts - answers are as follows: 
 ? What would you like to do? Push an existing local repository to GitHub
-? Path to local repository (.)
-
 ? Path to local repository .
-? Repository name (test)
-
 ? Repository name test
 ? Description A short description
-
-? Description A short description
 ? Visibility Public
-✓ Created repository wcDogg/test on GitHub
 ? Add a remote? Yes
-? What should the new remote be called? (origin)
-
 ? What should the new remote be called? origin
-✓ Added remote git@github.com:wcDogg/test.git
 ? Would you like to push commits from the current branch to "origin"? Yes
-✓ Pushed commits to git@github.com:wcDogg/test.git
 ```
 
 ## Basic Git Commands
@@ -130,18 +125,17 @@ Initialized empty Git repository in D:/GitHub/test/.git/
 * https://www.youtube.com/watch?v=apGV9Kg7ics
 * https://www.youtube.com/watch?v=SD7YNLv5Evc
 
-```
+```powershell
 # Clone existing repo
 git clone https://github.com/SqueezeSoftware/JSONpie.git
 
 # See the status of changes
 git status
 
-# Stage all changes
+# Stage changes
 git add .
-
-# Stage a file
-git add README.md
+git add file.txt
+git add dir-name
 
 # Remove file from stage
 git restore --staged README.md
@@ -150,7 +144,7 @@ git restore --staged README.md
 git commit -m "Commit message"
 
 # Stage + commit all changes
-git add . && git commit -m "commit message"
+git add . && git commit -m "Commit message"
 
 # Push changes to current branch
 git push
@@ -161,13 +155,16 @@ git push origin branchname
 # View commit history
 git log
 
+# You can also do this - press Q to exit
+git log --all --graph
+
 # See the contents of a file
 cat README.md
 ```
 
 ## Revert to an Earlier Commit not yet Pushed
 
-```
+```powershell
 # Get the commit's ID
 git log
 
@@ -180,7 +177,9 @@ git status
 
 ## Stashing Changes 
 
-```
+Stash only works once the project has an initial commit.
+
+```powershell
 # Stage what will be stashed
 git add .
 
@@ -199,7 +198,7 @@ git stash clear
 
 ## Connect an Existing Repo to Existing Local Directory
 
-```
+```powershell
 # Connect - 'origin' is the 'name' of this URL
 remote add origin <repo URL>
 
@@ -209,16 +208,23 @@ git remote -v
 
 ## Branching
 
-```
-# Create a branch
-git branch branchname
+```powershell
+# List local branches
+git branch
 
-# Switch to the new branch
-git checkout branchname
+# List remote branches
+git branch -r
+
+# Create local + push to GitHub
+git branch dbot
+git push -u origin dbot
+
+# Switch branches
+git checkout dbot
 
 # Merge branch to main
-git merge branchname
-
-
+git checkout main
+git merge dbot -m "Dependency version updates"
+git push
 ```
 
