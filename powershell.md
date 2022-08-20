@@ -107,10 +107,14 @@ Install Oh My Posh:
 winget install oh-my-posh
 ```
 
+Download a [theme](https://ohmyposh.dev/docs/themes#tokyo). Save to `C:\Users\wcd\.dracula.omp.json`.
+
 Add this to the All Users profile and restart PS: 
 
 ```
 oh-my-posh init pwsh --config ~/.default.omp.json | Invoke-Expression
+oh-my-posh init pwsh --config ~/.marcduiker.omp.json | Invoke-Expression
+oh-my-posh init pwsh --config ~/.dracula.omp.json | Invoke-Expression
 ```
 
 Get exe path and ensure your firewall allows this url: 
@@ -128,7 +132,7 @@ winget upgrade oh-my-posh
 
 ## My Profile
 
-Before using this profile, [set up OpneSSH](windows-11-pro-openSSH.md)
+Before using this profile, [set up OpenSSH](openSSH.md)
 
 Open Profile in your favorite code editor (VS Code, Notepad). Okay through the admin prompts.
 
