@@ -6,9 +6,10 @@ How to install and configure Git for Windows to use OpenSSH on Windows 11 Pro.
 
 These instructions are specific to OpenSSH and assume you have already created your key pair. 
 
-See: [Windows 11 Pro OpenSSH](windows-11-pro-openSSH.md)
-
 Your public key should be located in `C:\Users\user\.ssh\`. A key in this location will be automatically detected during GitHub authentication.
+
+* See: [Windows 11 Pro OpenSSH](windows-11-pro-openSSH.md)
+
 
 ## GitHub Emails
 
@@ -20,6 +21,7 @@ Your public key should be located in `C:\Users\user\.ssh\`. A key in this locati
 
 This sets your commit address to `username@users.noreply.github.com`
 
+
 ## GitHub SSH Key
 
 This step is NOT necessary - just noting where keys wind up. 
@@ -27,6 +29,7 @@ This step is NOT necessary - just noting where keys wind up.
 1. User menu > Settings 
 1. Left panel > Access: SSH & GPG Keys > New SSH key
 1. Paste your public key and save. 
+
 
 ## GitHub Personal Access Token
 
@@ -37,11 +40,12 @@ This step is NOT necessary - just noting where keys wind up.
 5. Check the boxes for these scopes: `repo`, `workflow`, `read:org`. 
 6. Click Generate Token. Copy it to a (`.env`) or password manager.
 
+
 ## Install Git
 
 Here is a slideshow of the settings I used: 
 
-![](./images/git-install/git-install.mp4)
+* [Install Git for Windows](./images/git-install/git-install.mp4)
 
 ## Bash
 
@@ -89,16 +93,15 @@ gh auth login
 See: [Adding an existing project to GitHub using the command line](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line)
 
 ```powershell
-# Create directory 
+# Create project directory 
 New-Item -Path 'D:\GitHub\my-project' -ItemType Directory
+# cd into project
 cd D:\GitHub\my-project
-
-
 
 # Use a template or: 
 # Add README.md
 # Add .gitignore
-# Add license
+# Add LICENSE
 
 # View contents
 Get-ChildItem
