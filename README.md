@@ -3,10 +3,10 @@
 A technical writer's notes on setting up Windows 11 Pro with a focus on Python and OSINT related projects.
 
 
-## Recommended First Steps
+**In this repo**
 
 * [Local Account](local-account.md)
-* [Chocolatey](chocolatey.md)* 
+* [Chocolatey](chocolatey.md)
 * [OpenSSH](openSSH.md)
 * [Git for Windows + GitHub](git-github.md)
 * [PowerShell 7](powershell.md)
