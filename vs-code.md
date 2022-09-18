@@ -1,8 +1,17 @@
 # VS Code
 
+## Install
+
 [Microsoft VS Code](https://code.visualstudio.com/)
 
+
 ## settings.json
+
+This is an example of my VS Code `settings.json`. 
+
+1. Open VS Code.
+2. In the bottom-left, click the Gear icon > Settings.
+3. In the upper-right corner, click the **Open settings.json** icon (file).
 
 ```
 {

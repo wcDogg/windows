@@ -2,7 +2,7 @@
 
 Fonts are an important part of workspace ergonomics. Good font face, size, and contrast choices can do a lot to reduce eye, neck, and back strain. They also lighten your brain's processing load, freeing it up to do better things. 
 
-Today I tried using a font that wasn't recognized by any command window - Windows PowerShell, Command Prompt, or PowerShell. Google turned up numerous solutions saying to create a registry string or a `fontcofig` file. And even more commenters saying it didn't work for them. 
+Today I tried using a font that wasn't recognized by any command window - Windows PowerShell, Command Prompt, or PowerShell. Google turned up numerous solutions saying to create a registry string or a `fontcofig` file - and even more comments saying this doesn't work. 
 
 To my mind, there was a reason this font wasn't being made available. And editing my registry will never feel like a solution. Here's how I figured it out and how you can get the font you want into Windows terminals. 
 

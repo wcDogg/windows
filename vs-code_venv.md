@@ -1,76 +1,78 @@
 # Python Virtual Environment in VS Code
 
+
 ## Git for Windows
 
-The easiest way to run Python in a VS Code Virtual Environment is with the GitBash terminal included with Git for Windows. 
+The easiest way to run Python in a VS Code Virtual Environment is with the Git Bash terminal included with Git for Windows. 
 
-See: [Git + GitHub for Windows.](https://github.com/CornDoggSoup/windows/blob/main/git-github.md)
+* See: [Git + GitHub for Windows.](git-github.md)
+
+
+## settings.json
 
 Note that as of 2022-06-01, Git Bash and Command Prompt terminals prefix commands with `&` instead of `source`. This is a VS Code issue that is being fixed but has not been released. Issue does not affect PowerShell terminal. 
 
-The workaround is given here: (microsoft/vscode-python/issues/16175)[https://github.com/microsoft/vscode-python/issues/16175]. In short, add this to your `settings.json`:
+The workaround is given here: (microsoft/vscode-python/issues/16175)[https://github.com/microsoft/vscode-python/issues/16175]. In short, modify your `settings.json`.
 
-```
-    "terminal.integrated.defaultProfile.windows": "Git Bash",
+1. Open VS Code.
+2. In the bottom-left corner, click the gear icon > Settings.
+3. In the upper-right corner, click the **Open settings.json** icon (file).
+4. Add the following lines and save:
+
+```json
     "terminal.integrated.profiles.windows": {
         "Git Bash": {
+            "path": "C:\\Program Files\\Git\\bin\\bash.exe",
             "source": "Git Bash",
+            "args": [],
             "icon": "terminal-bash"
-        }
+          },
     },
-    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
 ```
 
 ## VS Code Extensions
 
-Install these extensions. Exit VS Code.
+Install these extensions. 
 
 * Microsoft Python
 * Microsoft Pylance
 
+
 ## Create a Virtual Environment
 
-Open project folder in VS Code. Start a new Bash terminal.
+VS Code venv can be a little finicky to start. These are the steps I follow. Once configured, the environment will automatically activate any time you open the project directory in VS Code.
 
-```
+1. Open project folder in VS Code.
+2. Use `Ctrl+Shift+~` to open the terminal.
+3. In the upper-right corner, use the New Terminal icon (+) to open a bash shell if needed.
+   
+
+```bash
+# Create / open a .py file
+
+# Create venv - this takes a minute 
+# Adds a venv folder to project
 python -m venv venv
+
+# Activate - there is no visual confirmation
 venv/Scripts/activate.bat
 
-# Command Palette > Select Interpreter > Enter path
+# Command Palette > Python: Select Interpreter > Enter path
 # Browse to and select `project\venv\Scripts\python.exe`
 # Kill / start new terminal. May need to restart VS Code.
 
 # Prompt now shows (venv). Do a sanity check. 
 which pip
 
-# Install requirements.
-python -m pip install -r requirements.txt --upgrade
-
-# At the very least:
+# Update
 python -m pip install --upgrade pip setuptools wheel
+
+# Use requirements.txt
+# https://pip.pypa.io/en/stable/reference/requirements-file-format/
+python -m pip install -r requirements.txt --upgrade
 ```
 
-## requirements.txt
-
-[How to specify requirements](https://pip.pypa.io/en/stable/reference/requirements-file-format/)
-
-This is a simple `requirements.txt` - it goes in the project root:
-
-```
-pip
-setuptools
-wheel
-python-decouple
-requests
-# pytz
-# appdirs
-# Pillow
-```
-Install everything in this file: 
-
-```
-py -m pip install -r requirements.txt --upgrade
-```
 
 ## Issue: `Import module could not be resolved from source Pylance`
 

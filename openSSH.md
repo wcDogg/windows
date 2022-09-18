@@ -1,36 +1,29 @@
-# Windows 11 Pro OpenSSH
+# Windows OpenSSH
 
 Logging into remote services with a username & password is vulnerable to eavesdropping, connection hijacking, brute force, and other attacks.
 
 OpenSSH uses the SSH protocol for remote login. It uses key pairs for authentication and to encrypt all traffic between client and server. Built-in SSH has always been a Linux thing. Windows 10 and higher also supports OpenSSH. Git and other popular services support & recommend SSH. 
 
+
 ## Scenario
 
-Microsoft references are listed below. This is the first time I'm setting up SSH and I was happy to discover that the steps are easy to follow. Everything worked for me with one small exception that's noted. What follows are the scenario-specific steps that I took. 
+* I am the only user on my machine and I'm an admin user. 
+* It doesn't matter that I have a [local account](local-account.md) vs a Microsoft account. 
+* Commands can be run in Windows PowerShell or PowerShell as an administrator.
 
-Most relevant is that I am the only user on my machine and that I'm an admin user. It doesn't matter that I have a [local account](windows-11-pro-local-account.md) vs a Microsoft account. 
-
-## Resources
-
-* Microsoft: [Get started with OpenSSH](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse)
-* Microsoft: [OpenSSH key management](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement)
-
-## Which Terminal?
-
-All commands can be run in Windows PowerShell or PowerShell as an administrator.
 
 ## Check Services
 
-Start > Serices > 
+Start > Services > 
 
-* OpenSSH Authenitcation Agent: Startup type = Auto / Manual 
+* OpenSSH Authentication Agent: Startup type = Auto / Manual 
 * OpenSSH SSH Server: Startup type = Auto
 
 ## Install OpenSSH Client & Server
 
-In PS as admin: 
+In PowerShell as admin: 
 
-```
+```powershell
 # Check
 Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
 
@@ -41,22 +34,24 @@ Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
 ## Start the SSH service (server)
 
-Continue in PS as admin: 
+Continue in PowerShell as admin: 
 
-```
+```powershell
 Start-Service sshd
 Set-Service -Name sshd -StartupType 'Automatic'
 ```
 
 ## Confirm Firewall Rule
 
-Installing OpenSSH Server should create & enable a firewall rule named 'OpenSSH-Server-In-TCP'. This allows inbound SSH traffic on port 22. If this rule is not enabled and this port is not open, connections will be refused or reset. The code below will check for this rule and set it if necessary. 
-
-I run a 3rd-party firewall that is recognized by the baked-in Windows Defender Firewall. For me, this rule was set and works as expected. 
+* Installing OpenSSH Server should create & enable a firewall rule named 'OpenSSH-Server-In-TCP'.
+* This allows inbound SSH traffic on port 22. 
+* If this rule is not enabled and this port is not open, connections will be refused or reset. 
+* I run a 3rd-party firewall that is recognized by the baked-in Windows Defender Firewall. For me, this rule was set and works as expected. 
 
 Continue in PS as admin: 
 
-```
+```powershell
+# Check firewall and add rule if needed
 if (Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled) {
     Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' already exists. No changes made."
 } else {
@@ -70,38 +65,48 @@ if (Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyConti
 
 In the following steps, use `username@servername`. For a single user on a single PC, this is your Windows account username and your PC's name - wcd@wcdPC. You can use these to confirm: 
 
-```
+```powershell
 $env:USERNAME
 [System.Net.Dns]::GetHostName()
 ```
 
-## XX Locate Server IP XX
+## Locate Server IP
 
-Instead of using PC name as the servername, you can use the SSH server's IP address. For me, the following returned 2 addresses. One was my address (192.xxx.x.xxx), so I correctly guessed that the other was my server (10.x.x.x).
+There are 2 ways to connect to the OpenSSH server:
 
-TODO - This step did not work the second time - only returned my PC IP. Used PC name instead. 
+* username@servername
+* username@server-ip-address
 
-```
+```powershell
 ipconfig | select-string  ('(\s)+IPv4.+\s(?<IP>(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))(\s)*') -AllMatches | %{ $_.Matches } | % { $_.Groups["IP"]} | %{ $_.Value }
 ```
 
+I ran through these steps twice.
+
+* The first time, the command above showed 2 IPs. One was my LAN address (192.xxx.x.xxx), so I correctly guessed that the other was my server (10.x.x.x).
+* The second time, the command above only returned my LAN IP, so I used my PC name instead.
+
+
 ## Connect to OpenSSH Server
 
-Continue in PS as admin. This step adds the SSH server IP to the list of known hosts:
+Continue in PowerShell as admin. This step adds the SSH server IP to the list of known hosts:
 
-```
+```powershell
 ssh wcd@wcdPC
+
 # Authenticity...continue? yes
 # Permanently added...
 # Conntection reset...
 ```
 
-Continue in PS as admin. This step logs you in to the SSH server. This step worked if the screen clears and the prompt changes. 
+Continue in PowerShell as admin. This step logs you in to the SSH server. This step worked if the screen clears and the prompt changes. 
 
-```
+```powershell
 ssh wcd@wcdPC
+
 # Windows account password
 # Screen clears, prompt changes
+
 wcd@WCDPC C:\Users\wcd>
 ```
 
@@ -123,7 +128,7 @@ To generate a key pair:
 3. The result is a public key, a private key, and a SHA256 fingerprint + randomart.  
 4. Add passphrase and SHA256 fingerprint to a password manager. 
 
-```
+```powershell
 ssh-keygen -t ed25519
 
 # C:\Users\wcd\.ssh/id_wcd_ed25519
@@ -132,11 +137,13 @@ ssh-keygen -t ed25519
 
 ## Add private key to Windows security context
 
-Leave the connected terminal running. Open a new terminal as an admin. Your prompt should look like `PS C:\Windows\System32>`. For this step you will need the private key's file path and passphrase. 
+Leave the connected shell running. 
+
+**Open a new PowerShell as an admin**. Your prompt should look like `PS C:\Windows\System32>`. For this step you will need the private key's file path and passphrase. 
 
 This step stores the private key in a Windows security context associated with your Windows login. This context is perhaps the most protected and least vulnerable 'area' of a computer. Whenever a private key is needed for authentication, ssh-agent automatically retrieves the private key and passes it to the SSH client.
 
-```
+```powershell
 Get-Service ssh-agent | Set-Service -StartupType Manual
 Start-Service ssh-agent
 Get-Service ssh-agent
@@ -147,9 +154,10 @@ ssh-add C:\Users\wcd\.ssh\id_wcd_ed25519
 ```
 Note: Microsoft's instructions use `~\.ssh\` instead of the full path. This didn't work for me - the full path did. Shallow research says this is a mismatch between how Windows and PowerShell use the tilde `~`. 
 
-## Deploy Public Key for Local Admin
 
-Stay in the un-connected terminal - your prompt should look like `PS C:\Windows\System32>`.
+## Add Public Key to OpenSSH Server
+
+Stay in the new, un-connected shell - your prompt should look like `PS C:\Windows\System32>`.
 
 To use the key pair, the contents of the public key need to be placed into a text file on the OpenSSH server. 
 
@@ -159,7 +167,7 @@ To use the key pair, the contents of the public key need to be placed into a tex
 * The ACL on this file must restrict access to administrators and System.
 * You will need your Windows account password for this step.
 
-```
+```powershell
 # Check for / create .ssh directory for current user.
 ssh wcd@wcdPC mkdir C:\ProgramData\ssh\
 
@@ -190,11 +198,12 @@ At this point the private key has been added to the Windows security context and
 
 Right now, there are local copies at `C:\Users\wcd\.ssh`. Backup both keys to a secure location. Leave the public key in this folder for easy access. Delete the private key in this folder. 
 
+
 ## Access Public Keys
 
-At some point you'll need to copy your public key. 
+At some point you may need to copy your public key. 
 
-```
+```powershell
 # Copy public key to clipboard
 Get-Content C:\Users\wcd\.ssh\id_wcd_ed25519.pub | clip
 
@@ -204,5 +213,12 @@ Get-Content C:\Users\wcd\.ssh\id_wcd_ed25519.pub
 
 ## Start SSH Agent when PowerShell Loads
 
-See [Powershell > My Profile](powershell.md#my-profile) for how to create a profile. Includes my current profile that starts SSH Agent automatically and has functions to copy/display public key. 
+See [Powershell](powershell.md) for how to create a profile and start OpenSSH automatically.
+
+
+## References
+
+* Microsoft: [Get started with OpenSSH](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse)
+* Microsoft: [OpenSSH key management](https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement)
+
 

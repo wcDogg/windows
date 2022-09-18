@@ -1,24 +1,7 @@
 # PowerShell 7
 
-## Quick Grab
 
-```
-NAS
-
-ProAllCode
-Code $profile.AllUsersAllHosts
-
-ProAllNP
-notepad $profile.AllUsersAllHosts
-
-ProMeCode
-Code $Home\Documents\PowerShell\Profile.ps1
-
-ProMeNP
-notepad $Home\Documents\PowerShell\Profile.ps1
-```
-
-## Install PowerShell
+## Install PowerShell 7
 
 Be sure to check the options for adding to `$PATH` and VS Code.
 
@@ -32,7 +15,7 @@ Be sure to check the options for adding to `$PATH` and VS Code.
 
 You can skip this and add it to a profile later. 
 
-```
+```powershell
 $env:POWERSHELL_TELEMETRY_OPTOUT
 ```
   
@@ -40,7 +23,7 @@ $env:POWERSHELL_TELEMETRY_OPTOUT
 
 This is a one-time step that cannot be done via a profile. In PS as admin:
 
-```
+```powershell
 $value = Get-ExecutionPolicy
 if ($value -eq 'RemoteSigned') {
   Write-Host "Execution policy is currently 'RemoteSigned'. No changes made."
@@ -50,21 +33,32 @@ if ($value -eq 'RemoteSigned') {
 }
 ```
 
-## Create Profile
+## About PowerShell Profiles
 
-At some point you'll want or need to create profiles - i.e. I wanted to [start the SSH agent when PS loads](windows-11-pro-openSSH.md). I found it best to use 2 profiles - 1 for all users and one for me as the current user. 
+At some point you'll want or need to create profiles. I found it best to use 2 profiles - 1 for all users and one for me as the current user. 
 
 * Micorsoft: [PowerShell Profiles](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.2#the-profile-files)
-  
 
-### All Users, All Hosts Profile
+To create and open profiles, from PowerShell as admin:
+
+```powershell
+# All users, all hosts
+Code $profile.AllUsersAllHosts
+notepad $profile.AllUsersAllHosts
+
+# Current user, all hosts
+Code $Home\Documents\PowerShell\Profile.ps1
+notepad $Home\Documents\PowerShell\Profile.ps1
+```
+
+## All Users, All Hosts Profile
 
 * The variable for this file is: `$PSHOME\Profile.ps1`.
 * The command to locate this file is: `$profile.AllUsersAllHosts`.
 
 In PowerShell as an admin, test if this file exists and create if needed:
 
-```
+```powershell
 if (Test-Path $profile.AllUsersAllHosts) {
   Write-Host "Profile exists."
 } else {
@@ -73,80 +67,9 @@ if (Test-Path $profile.AllUsersAllHosts) {
 }
 ```
 
-### Current User, All Hosts Profile
- 
-* The variable for this profile is: `$PROFILE.CurrentUserAllHosts`.
-* The command to locate this file is:`$Home\Documents\PowerShell\Profile.ps1`
+Use this profile to share settings - like starting the OpenSSH server - across users. For example:
 
-In PowerShell test if this file exists and create if needed:
-
-```
-if (Test-Path $Home\Documents\PowerShell\Profile.ps1) {
-  Write-Host "Profile exists."
-} else {
-  New-Item -ItemType File -Path $Home\Documents\PowerShell\Profile.ps1 -Force
-  Write-Host "Profile created."  
-}
-```
-
-## Oh My Posh
-
-* [Oh My Posh](https://ohmyposh.dev/)
-* [Get Started > Windows](https://ohmyposh.dev/docs/installation/windows)
-* [Pick a theme](https://ohmyposh.dev/docs/themes) - default, 1_shell
-
-Get a Nerd Font: 
-
-1. Download [Caskaydia Cove Nerd Font](https://www.nerdfonts.com/font-downloads).
-2. Install `Caskaydia Cove Nerd Font Complete Mono Windows Compatible.ttf`.
-3. In PowerShell, set `CaskaydiaCove NF` as the default font. (Right-clck title bar > Defaults > Font)
-
-Install Oh My Posh:  
-
-```
-winget install oh-my-posh
-```
-
-Download a [theme](https://ohmyposh.dev/docs/themes#tokyo). Save to `C:\Users\wcd\.dracula.omp.json`.
-
-Add this to the All Users profile and restart PS: 
-
-```
-oh-my-posh init pwsh --config ~/.default.omp.json | Invoke-Expression
-oh-my-posh init pwsh --config ~/.marcduiker.omp.json | Invoke-Expression
-oh-my-posh init pwsh --config ~/.dracula.omp.json | Invoke-Expression
-```
-
-Get exe path and ensure your firewall allows this url: 
-
-```
-(Get-Command oh-my-posh).Source
-# C:\Users\wcd\AppData\Local\Programs\oh-my-posh\bin\oh-my-posh.exe
-```
-
-Update: 
-
-```
-winget upgrade oh-my-posh
-```
-
-## My Profile
-
-Before using this profile, [set up OpenSSH](openSSH.md)
-
-Open Profile in your favorite code editor (VS Code, Notepad). Okay through the admin prompts.
-
-```
-Code $profile.AllUsersAllHosts
-notepad $profile.AllUsersAllHosts
-
-Code $Home\Documents\PowerShell\Profile.ps1
-notepad $Home\Documents\PowerShell\Profile.ps1
-```
-
-### $profile.AllUsersAllHosts
-
-```
+```ps1
 # Variables
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 $VerbosePreference = "SilentlyContinue"
@@ -174,9 +97,25 @@ function ProAllCode {Code $PROFILE.AllUsersAllHosts}
 function ProAllNP {notepad $PROFILE.AllUsersAllHosts}
 ```
 
-### $Home\Documents\PowerShell\Profile.ps1
+## Current User, All Hosts Profile
+ 
+* The variable for this profile is: `$PROFILE.CurrentUserAllHosts`.
+* The command to locate this file is:`$Home\Documents\PowerShell\Profile.ps1`
 
+In PowerShell test if this file exists and create if needed:
+
+```powershell
+if (Test-Path $Home\Documents\PowerShell\Profile.ps1) {
+  Write-Host "Profile exists."
+} else {
+  New-Item -ItemType File -Path $Home\Documents\PowerShell\Profile.ps1 -Force
+  Write-Host "Profile created."  
+}
 ```
+
+Use this profile for user-specific settings like SSH to remote servers.
+
+```ps1
 # SSH to NAS
 function NAS {ssh user@192.168.1.xxx -pxxxxx}
 
@@ -186,6 +125,7 @@ function ProMeCode {Code $Home\Documents\PowerShell\Profile.ps1}
 # Open this profile in Notepad
 function ProMeNP {notepad $Home\Documents\PowerShell\Profile.ps1}
 ```
+
 
 ## Learn More
 

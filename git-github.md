@@ -8,7 +8,7 @@ These instructions are specific to OpenSSH and assume you have already created y
 
 Your public key should be located in `C:\Users\user\.ssh\`. A key in this location will be automatically detected during GitHub authentication.
 
-* See: [Windows 11 Pro OpenSSH](windows-11-pro-openSSH.md)
+* See: [Windows OpenSSH](openSSH.md)
 
 
 ## GitHub Emails
@@ -45,7 +45,8 @@ This step is NOT necessary - just noting where keys wind up.
 
 Here is a slideshow of the settings I used: 
 
-* [Install Git for Windows](./images/git-install/git-install.mp4)
+* [Install Git for Windows](https://raw.githubusercontent.com/wcDogg/windows/main/images/git-install/git-install.mp4)
+
 
 ## Bash
 
@@ -57,11 +58,12 @@ Instructions can be performed in any terminal that understands Bash. This does N
 * Git Bash terminal 
 * VS Code integrated Bash terminal
 
+
 ## Configure Git Profile
 
 Use your GitHub username and the noreply email you configured in a previous step. 
 
-```
+```bash
 git --version
 git config --global user.name "wcDogg"
 git config --global user.email "wcDogg@users.noreply.github.com"
@@ -70,29 +72,29 @@ git config --global --list
 
 ## Install GitHub CLI + Authenticate
 
-[GitHub CLI](https://cli.github.com/)
+For this step you will need your GitHub username and personal access token .
 
-For this step you will need your GitHub username and personal access token 
+* [GitHub CLI](https://cli.github.com/)
 
-```
+```bash
 gh auth login
 
-? What account do you want to log into? GitHub.com
-? What is your preferred protocol for Git operations? SSH
-? Generate a new SSH key to add to your GitHub account? No
-? TODO the prompt here auto-detects keys stored at `C:\Users\user\.ssh\` - select it.
-? How would you like to authenticate GitHub CLI? Paste an authentication token
-? Paste your authentication token: ****************************************
-- gh config set -h github.com git_protocol ssh
-✓ Configured git protocol
-✓ Logged in as wcDogg
+# ? What account do you want to log into? GitHub.com
+# ? What is your preferred protocol for Git operations? SSH
+# ? Generate a new SSH key to add to your GitHub account? No
+# ? TODO the prompt here auto-detects keys stored at `C:\Users\user\.ssh\` - select it.
+# ? How would you like to authenticate GitHub CLI? Paste an authentication token
+# ? Paste your authentication token: ****************************************
+# - gh config set -h github.com git_protocol ssh
+# ✓ Configured git protocol
+# ✓ Logged in as wcDogg
 ```
 
 ## New Repo from Local Directory
 
-See: [Adding an existing project to GitHub using the command line](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line)
+* [GitHub: Adding an existing project to GitHub using the command line](https://docs.github.com/en/get-started/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line)
 
-```powershell
+```bash
 # Create project directory 
 New-Item -Path 'D:\GitHub\my-project' -ItemType Directory
 # cd into project
@@ -113,14 +115,24 @@ git status
 gh repo create
 
 # Follow the prompts - answers are as follows: 
-? What would you like to do? Push an existing local repository to GitHub
-? Path to local repository .
-? Repository name test
-? Description A short description
-? Visibility Public
-? Add a remote? Yes
-? What should the new remote be called? origin
-? Would you like to push commits from the current branch to "origin"? Yes
+# ? What would you like to do? Push an existing local repository to GitHub
+# ? Path to local repository .
+# ? Repository name test
+# ? Description A short description
+# ? Visibility Public
+# ? Add a remote? Yes
+# ? What should the new remote be called? origin
+# ? Would you like to push commits from the current branch to "origin"? Yes
+```
+
+## Connect an Existing Repo to Existing Local Directory
+
+```powershell
+# Connect - 'origin' is the 'name' of this URL
+remote add origin <repo URL>
+
+# View all of the URLs associated with a repo
+git remote -v
 ```
 
 ## Basic Git Commands
@@ -197,16 +209,6 @@ git stash pop
 
 # Discard stashed - permanent + irreversible
 git stash clear
-```
-
-## Connect an Existing Repo to Existing Local Directory
-
-```powershell
-# Connect - 'origin' is the 'name' of this URL
-remote add origin <repo URL>
-
-# View all of the URLs associated with a repo
-git remote -v
 ```
 
 ## Branching

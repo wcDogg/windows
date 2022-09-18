@@ -2,7 +2,7 @@
 
 **Do I own my Operating System?**
 
-I'm old enough to remember installing my OS from floppy discs or a CD. On the disk envelope there was a sticker with the license key. You had to hang on to that disc & key for when you royaly screwed up & needed to reinstall. I had 2 disc binders full of them. 
+I'm old enough to remember installing my OS from floppy discs or a CD. On the disk envelope there was a sticker with the license key. You had to hang on to that disc & key for when you royally screwed up & needed to reinstall. I had 2 disc binders full of them. 
 
 Discs are still a thing, but nou we can download an OS & purchase a key online. You still need to hang on to the key, but you can download as needed. 
 
