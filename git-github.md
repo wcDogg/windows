@@ -37,7 +37,7 @@ This step is NOT necessary - just noting where keys wind up.
 2. Left panel > Developer Settings > Personal Access Tokens 
 3. In the top-right corner, click Add New.
 4. Name the token and set an expiration date. 
-5. Check the boxes for these scopes: `repo`, `workflow`, `read:org`. 
+5. Check the boxes for these scopes: `repo`, `workflow`, `read:org`, `admin:public_key`
 6. Click Generate Token. Copy it to a (`.env`) or password manager.
 
 
