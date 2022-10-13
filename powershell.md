@@ -77,6 +77,9 @@ $VerbosePreference = "SilentlyContinue"
 # Oh My Posh
 oh-my-posh init pwsh --config ~/.default.omp.json | Invoke-Expression
 
+# Command History
+Set-PSReadlineOption -HistoryNoDuplicates
+
 # SSH Agent
 $sshAgentStopped = 'Stopped' -eq (Get-Service -Name 'ssh-agent' -ErrorAction SilentlyContinue).status
 

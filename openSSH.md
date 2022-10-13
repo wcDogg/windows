@@ -131,7 +131,7 @@ To generate a key pair:
 ```powershell
 ssh-keygen -t ed25519
 
-# C:\Users\wcd\.ssh/id_wcd_ed25519
+# C:\Users\wcd\.ssh/id_gh_ed25519
 # Create passphrase for private key file
 ```
 
