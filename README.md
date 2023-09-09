@@ -16,7 +16,7 @@ A technical writer's notes on setting up Windows 11 Pro with a focus on Python a
 
 **In other repos**
 
-* [Install Multiple Versions of Python on Windows](https://github.com/wcDogg/python/blob/main/install-python-windows.md)
+* [Install Multiple Versions of Python on Windows](https://gist.github.com/wcDogg/a8ca2e60d97a3329071856324c584e22)
 * [PuTTY](https://github.com/wcDogg/wireguard-pihole-aws/blob/main/06-putty.md)
 
 
