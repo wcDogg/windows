@@ -1,18 +1,28 @@
 # Chocolatey
 
-* [.NET Framework Runtime](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
-* [Chocolatey](https://chocolatey.org/install)
+## Install .NET
+
+[.NET Framework Runtime](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
+
+
+## Install Chocolatey
+
+[Chocolatey](https://chocolatey.org/install)
+
+In PowerShell as admin: 
 
 ```powershell
-# PS as admin
-
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 choco --version
 ```
 
-TODO: add tab completetion to PS profile.
+## Update Chocolatey
+
+In PowerShell as admin: 
 
 ```powershell
-WARNING: Not setting tab completion: Profile file does not exist at 'C:\Users\wcd\Documents\PowerShell\Microsoft.PowerShell_profile.ps1'.
+choco --version
+choco upgrade chocolatey
+choco --version
 ```

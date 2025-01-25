@@ -1,5 +1,6 @@
 # PowerShell 7
 
+How to install PowerShell and create user profiles. 
 
 ## Install PowerShell 7
 
@@ -74,30 +75,11 @@ Use this profile to share settings - like starting the OpenSSH server - across u
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 $VerbosePreference = "SilentlyContinue"
 
-# Oh My Posh
-oh-my-posh init pwsh --config ~/.default.omp.json | Invoke-Expression
-
 # Command History
 Set-PSReadlineOption -HistoryNoDuplicates
 
-# SSH Agent
-$sshAgentStopped = 'Stopped' -eq (Get-Service -Name 'ssh-agent' -ErrorAction SilentlyContinue).status
-
-if ($sshAgentStopped) {
-  Write-Host "Starting SSH Agent..."
-  Start-Service -Name 'ssh-agent'
-  Write-Host "SSH Agent is running."
-  Get-Service ssh-agent
-} else {
-  Write-Host "SSH Agent is running."
-  #Get-Service ssh-agent
-}
-
-# Open this profile in VS Code
-function ProAllCode {Code $PROFILE.AllUsersAllHosts}
-
-# Open this profile in Notepad
-function ProAllNP {notepad $PROFILE.AllUsersAllHosts}
+# Oh My Posh
+oh-my-posh init pwsh --config ~/.default.omp.json | Invoke-Expression
 ```
 
 ## Current User, All Hosts Profile
@@ -119,18 +101,46 @@ if (Test-Path $Home\Documents\PowerShell\Profile.ps1) {
 Use this profile for user-specific settings like SSH to remote servers.
 
 ```ps1
+# wce.red
+function wcdred{ssh -i ~/.ssh/wcd-red.pem ubuntu@wcd.red}
+
 # SSH to NAS
-function NAS {ssh user@192.168.1.xxx -pxxxxx}
+function NAS {ssh wcdogg@192.168.1.209 -p7022}
 
-# Open this profile in VS Code
-function ProMeCode {Code $Home\Documents\PowerShell\Profile.ps1}
-
-# Open this profile in Notepad
-function ProMeNP {notepad $Home\Documents\PowerShell\Profile.ps1}
+# SSH to wcdUbuntu
+function wcdub {ssh -i ~/.ssh/wcd-ubuntu.pem ubuntu@23.20.11.194}
 ```
 
+# PowerShell and VS Code
 
-## Learn More
+You can set PowerShell 7 as the default terminal for VS Code.
+
+```powershell
+# Check and note the installation path
+Get-Command pwsh | Select-Object -ExpandProperty Path
+
+C:\Program Files\PowerShell\7\pwsh.exe
+```
+
+In VS Code:
+
+1. `Ctrl + ,` to open 'Settings'
+2. Search for: `terminal.integrated.defaultProfile`
+3. On either or both of the 'User' and 'Workspace' tabs, locate the 'Terminal' dropdown and select 'PowerShell'.
+
+Alternatively, you can add this to your `settings.json`: 
+
+```json
+"terminal.integrated.defaultProfile.windows": "PowerShell 7",
+"terminal.integrated.profiles.windows": {
+  "PowerShell 7": {
+    "path": "C:\\Program Files\\PowerShell\\7\\pwsh.exe"
+  }
+}
+
+```
+
+## References
 
 * GitHub: [Learn PowerShell](https://github.com/PowerShell/PowerShell/tree/master/docs/learning-powershell)
 * Microsoft: [Migrating from Windows PowerShell 5.1 to PowerShell 7](https://docs.microsoft.com/en-us/powershell/scripting/whats-new/migrating-from-windows-powershell-51-to-powershell-7?view=powershell-7.2)
@@ -138,4 +148,5 @@ function ProMeNP {notepad $Home\Documents\PowerShell\Profile.ps1}
 * [PSHostRawUserInterface Class](https://docs.microsoft.com/en-us/dotnet/api/system.management.automation.host.pshostrawuserinterface?view=powershellsdk-7.0.0) 
 * [GNU Bash](https://www.gnu.org/software/bash/)
 * mohitgoyal.co: [Write Verbose Output in PowerShell using Write-Verbose](https://mohitgoyal.co/2019/07/05/write-verbose-output-in-powershell-using-write-verbose/)
+
 
