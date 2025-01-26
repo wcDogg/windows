@@ -1,13 +1,15 @@
 # Chocolatey
 
+Chocolatey is a Windows package manager that simplifies installing, updating, and managing software and tools from the command line.
+
 ## Install .NET
 
 [.NET Framework Runtime](https://dotnet.microsoft.com/en-us/download/dotnet-framework)
 
-
 ## Install Chocolatey
 
-[Chocolatey](https://chocolatey.org/install)
+1. Go to [Chocolatey](https://chocolatey.org/install).
+2. Follow the instructions for 'Install Chocolatey for Individual Use'.
 
 In PowerShell as admin: 
 
