@@ -396,6 +396,39 @@ BUILTIN\Administrators:(OI)(CI)(F)
 wcdPC\wcd:(OI)(CI)(F)
 ```
 
+
+## Check/Start the SSH Agent when PowerShell Starts
+
+Adding this script to your PowerShell profile ensures that the SSH agent is always running when you start a PowerShell session. This is particularly useful for a seamless Git and SSH workflow.
+
+```powershell
+# Open the global PS profile
+Code $profile.AllUsersAllHosts
+
+# ----------------------------------------------------
+# Auto-start the SSH Agent
+# ----------------------------------------------------
+
+# Check if the SSH agent service exists and get its status
+$sshAgent = Get-Service -Name 'ssh-agent' -ErrorAction SilentlyContinue
+
+Write-Host "------------------------------------------------------------"
+
+if ($null -eq $sshAgent) {
+  Write-Host "SSH Agent service not found. Please ensure OpenSSH is installed." -ForegroundColor Red
+  return
+}
+
+if ($sshAgent.Status -eq 'Stopped') {
+  Write-Host "Starting SSH Agent..." -ForegroundColor Cyan
+  Start-Service -Name 'ssh-agent'
+} 
+
+Get-Service -Name 'ssh-agent'
+
+Write-Host "------------------------------------------------------------"
+```
+
 ## Access Public Keys
 
 At some point you may need to copy your public key. 

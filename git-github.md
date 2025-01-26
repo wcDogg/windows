@@ -358,3 +358,23 @@ gh --version
 gh upgrade
 gh --version
 ```
+
+## Troubleshooting
+
+Hello. In VS Code when I went to synch my comments, I got this error:
+
+2025-01-25 22:27:54.081 [info] CreateProcessW failed error:193
+ssh_askpass: posix_spawnp: Unknown error
+git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+2025-01-25 22:27:54.109 [info] > git config --get commit.template [25ms]
+2025-01-25 22:27:54.112 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) --ignore-case refs/heads/main refs/remotes/main [26ms]
+2025-01-25 22:27:54.141 [info] > git for-each-ref --sort -committerdate --format %(refname) %(objectname) %(*objectname) [25ms]
+2025-01-25 22:27:54.142 [info] > git status -z -uall [28ms]
+
+
+
+

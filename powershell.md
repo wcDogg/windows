@@ -71,6 +71,7 @@ if (Test-Path $profile.AllUsersAllHosts) {
 Use this profile to share settings - like starting the OpenSSH server - across users. For example:
 
 ```ps1
+# Open profile
 Code $profile.AllUsersAllHosts
 
 # Variables
