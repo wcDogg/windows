@@ -110,13 +110,139 @@ git@github.com: Permission denied (publickey).
 
 ## Install Git for Windows
 
-[Git for Windows](https://gitforwindows.org/)
+1. Download [Git for Windows](https://gitforwindows.org/) and run the installer.
+2. Confirm with `git --version`.
 
-Be sure to look for and enable the `Add to Path` option.
+See the [settings I used](./images/git-install/)
 
-```powershell
-git --version
+Many tutorials say to check for these, but I did not see either during installation:
+
+- Look for and ensure `Add to PATH` is enabled. 
+- Look for and ensure `allow Unix-style /mnt drive mappings` is enabled.
+
+
+## Configure Git Bash for Multiple Drives
+
+The big idea is that, once Git for Windows is installed, you can use `bash` commands in PowerShell 7. 
+
+The default Git installation is configured to mount one drive - `host` in my case. I discovered this when I attempted to use PowerShell to run a generic bash script and kept getting `No such file`.  
+
+```bash
+# Unix path, expected to work
+bash F:/scripts/hello-world.sh
+>> /bin/bash: F:/scripts/hello-world.sh: No such file or directory
+
+# Git Bash path, expected to work
+bash /f/scripts/hello-world.sh
+>> /bin/bash: /f/scripts/hello-world.sh: No such file or directory
+
+# Git Bash absolute path, expected to work
+bash //f/scripts/hello-world.sh
+>> /bin/bash: //f/scripts/hello-world.sh: No such file or directory
+
+# Windows path, not expected to work
+bash F:\scripts\hello-world.sh
+>> /bin/bash: F:scriptshello-world.sh: No such file or directory
 ```
+
+The first steps are to check the basics, locate the file's correct Git Bash path, and confirm the file runs. 
+
+```bash
+# As admin, set PowerShell execution policy to allow running scripts.
+# This cannot be configured via profiles. 
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+# Check file exists, Windows
+Test-Path F:\scripts\hello-world.sh
+>> True
+
+# Check Git installation.
+# This opens the Git Bash shell in PowerShell.
+bash
+>> wcdPC:/mnt/host/c/Users/wcd#
+
+# Check file exists, Git Bash
+ls -l /f/scripts/hello-world.sh
+>> ls: /f/scripts/hello-world.sh: No such file or directory
+
+# So file exists in Windows, but Git Bash is not interpreting the path correctly. 
+# Continue in bash shell.
+
+# Check `F` drive is mounted - it is not. 
+ls /mnt
+>> host
+
+# Navigate Git Bash to find the script's full path. 
+ls -l /mnt/host
+ls -l /mnt/host/f
+ls -l /mnt/host/f/scripts
+
+# Exit Git Bash shell
+exit
+
+# Try running script with the correct path.
+# If it does, you can proceed to updating the Git Bash configuration.
+bash /mnt/host/f/scripts/hello-world.sh
+>> Hello, World!
+
+```
+
+Now that we know things are working, we can update the Git for Windows configuration to work with multiple drives. 
+
+First, confirm VS Code is using UTF-8 for file encoding (it should by default):
+
+1. Use `Ctrl + ,` to open Settings. 
+1. Search for `file.encoding`.
+1. Ensure the setting dropdown is set to `UTF-8`. 
+1. If you need to change it, restart VS Code and any terminals after saving. 
+
+Next, edit the configuration file and test changes. 
+
+```bash
+# Test if config file exists - it should.
+cd "C:\Program Files\Git\etc"
+Test-Path .\fstab
+>> True
+
+# Create file if needed - unusual. 
+New-Item -Path .\fstab -ItemType File
+
+# Open file in VS Code
+code .\fstab
+
+# IMPORTANT: In the bottom-right corner of VS Code, and ensure: 
+# - Encoding is set to UTF-8
+# - Line endings are set to `LF` and not `CRLF`.
+
+# Replace the existing rules with the following
+# and leave a blank line at the end ...
+
+# DO NOT REMOVE NEXT LINE. It removes the cygdrive prefix from the path
+# none / cygdrive binary,posix=0,noacl,user 0 0
+none /mnt cygdrive binary,posix=0,noacl,user 0 0
+none /tmp usertemp binary,posix=0,noacl 0 0
+
+# Save and close file. 
+# Kill and restart terminal.
+
+# Refresh the mount points
+bash
+mount -a
+
+# Confirm `mnt` now lists drives and not just `host`.
+bash
+ls /mnt
+>> host
+
+# Confirm script can be accessed like this. 
+ls -l /mnt/f/scripts/hugo-setup.sh
+
+```
+
+[TODO] Another thing I saw and suspect is related, is that I needed to explicitly mark repo directories as safe in my global Git configuration in order for the VS Code UI to work with GitHub SSH. 
+
+I will test if updating the Git config fixes this the next time I'm working with a new repo.
+
 
 ## Install GitHub CLI
 
@@ -174,8 +300,14 @@ If you have multiple GitHub accounts, you can either:
 The easiest way to use a repository profile is to open the repo in VS Code and use the Terminal from there.
 
 ```powershell
-git config --list
+# VS Code repo 
 
+# Show the current config
+# Use `q` to exit.
+git config --list
+q 
+
+# Add profiles
 git config user.name "wcDogg"
 git config user.email "wcDogg@users.noreply.github.com"
 
@@ -195,11 +327,18 @@ fatal: detected dubious ownership in repository at 'F:/wcDogg/windows'
 To fix or prevent this, you must add the directory explicitly to Git's global configuration. (You cannot use just `F:/` here.)
 
 ```powershell
+# List safe directories
+git config --global --get-all safe.directory
+
 # Mark as safe
 git config --global --add safe.directory F:/wcDogg/windows
 
-# Restart the terminal and confirm:
-git config --global --get-all safe.directory
+# Remove all safe directories
+git config --global --unset-all safe.directory
+
+# Remove a specific safe directory
+git config --global --unset safe.directory F:/wcDogg/windows
+
 ``` 
 
 ## Update New and Existing Local Repositories
@@ -225,6 +364,8 @@ git config user.email "wcDogg@users.noreply.github.com"
 git config user.name "swatchpie"
 git config user.email "SwatchPie@users.noreply.github.com"
 ```
+
+## PowerShell Function to Update Repositories
 
 Because this needs to be routine, I wrote a PowerShell script to ease the process:
 
@@ -358,23 +499,3 @@ gh --version
 gh upgrade
 gh --version
 ```
-
-## Troubleshooting
-
-Hello. In VS Code when I went to synch my comments, I got this error:
-
-2025-01-25 22:27:54.081 [info] CreateProcessW failed error:193
-ssh_askpass: posix_spawnp: Unknown error
-git@github.com: Permission denied (publickey).
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-2025-01-25 22:27:54.109 [info] > git config --get commit.template [25ms]
-2025-01-25 22:27:54.112 [info] > git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track)%00%(upstream:remotename)%00%(upstream:remoteref) --ignore-case refs/heads/main refs/remotes/main [26ms]
-2025-01-25 22:27:54.141 [info] > git for-each-ref --sort -committerdate --format %(refname) %(objectname) %(*objectname) [25ms]
-2025-01-25 22:27:54.142 [info] > git status -z -uall [28ms]
-
-
-
-
