@@ -71,6 +71,8 @@ if (Test-Path $profile.AllUsersAllHosts) {
 Use this profile to share settings - like starting the OpenSSH server - across users. For example:
 
 ```ps1
+Code $profile.AllUsersAllHosts
+
 # Variables
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 $VerbosePreference = "SilentlyContinue"
@@ -100,7 +102,10 @@ if (Test-Path $Home\Documents\PowerShell\Profile.ps1) {
 
 Use this profile for user-specific settings like SSH to remote servers.
 
-```ps1
+```powershell
+# Open profile 
+Code $Home\Documents\PowerShell\Profile.ps1
+
 # wce.red
 function wcdred{ssh -i ~/.ssh/wcd-red.pem ubuntu@wcd.red}
 
