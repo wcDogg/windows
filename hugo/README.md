@@ -8,10 +8,8 @@ HUGO is a static website generator written in GO. I have used Jekyll and Elevent
 ## Contents
 
 - [Install HUGO](./install-hugo.md)
-- []
+- [BootStrap 5](./bootstrap-5.md)
 
 
 # Bootstrap 5
-
-[Getting started with Bootstrap 5 and HUGO](https://www.youtube.com/watch?v=Vj5zy2q7O9U&t=1433s)
 

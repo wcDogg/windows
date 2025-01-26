@@ -8,6 +8,5 @@ A technical writer's notes about setting up various things on Windows 11 Pro.
 * [Git for Windows + GitHub](git-github.md)
 * [PowerShell 7](powershell.md)
 * [Oh My Posh](oh-my-posh.md)
-* [VS Code](vs-code.md)
-* [VS Code Python venv](vs-code_venv.md)
+* [HUGO + Bootstrap 5](./hugo/README.md) 
 
