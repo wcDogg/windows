@@ -69,29 +69,40 @@ These steps configure the default font used for all shells.
 
 Test by restarting PowerShell as a non-admin.
 
-
-## 4. Update Profile
+## 4. Create Profile
 
 Microsoft: [PowerShell Profiles](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.2#the-profile-files)
 
 ```powershell
-# PowerShell 7 as Admin
-# Get location of profile
-$PROFILE
+# Does profile exist?
+test-path $PROFILE
 
-# Open in VS Code to edit
-Code $PROFILE
+# Create a profile
+New-Item -path $PROFILE -type file -force
 
-# 
-# Add this to profile and save.
-#
+# Open profile in VS Code
+code $PROFILE
 
-# Variables
+```
+
+## 6. Sample Profile
+
+```ps1
+# Disable telemetry
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
+
+# Verbose
 $VerbosePreference = "SilentlyContinue"
 
 # Command History
 Set-PSReadlineOption -HistoryNoDuplicates
+
+# Remove the default PowerShell 'curl' alias
+if (Get-Alias curl -ErrorAction SilentlyContinue) { Remove-Item alias:curl }
+
+# Set 'curl' to point directly to the real curl.exe
+# Validate with: curl --version
+Set-Alias curl curl.exe
 
 # Oh My Posh
 oh-my-posh init pwsh --config ~/aliens.omp.json | Invoke-Expression

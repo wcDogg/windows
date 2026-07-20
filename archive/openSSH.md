@@ -137,9 +137,6 @@ PolicyAppId                   :
 PackageFamilyName             :
 ```
 
-
-
-
 ## Check Host Key Permissions
 
 When you install OpenSSH, it creates a `C:\ProgramData\ssh\` directory with `ssh_host_*` keys. 

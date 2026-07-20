@@ -1,23 +1,32 @@
 # Node JS
 
 
-## Install Node.js
+## 1. NVM for Windows
 
-1. Go to [Node.js](https://nodejs.org/en).
-2. Download and run the latest installer.
-3. Use the installation defaults. The important setting is 'Add to PATH'.
-5. Check the box to install [Chocolatey](./chocolatey.md). 
-6. Verify by checking the version.
+[NVM](nvmnode.com/guide/download.html)
+
+NVM lets us manage multiple versions of Node.js and use `npx`.
 
 ```powershell
-node -v
-v21.1.0
+# Install NVM
+winget install CoreyButler.NVMforWindows
+
+# Restart PowerShell and validate
+nvm version
+
 ```
 
-## Update Node.js
+## 2. Node.js
 
-1. Go to [Node.js](https://nodejs.org/en).
-2. Download and run the latest installer.
-3. You do not need to uninstall previous versions. 
+```PowerShell
+# 1. Install the Long Term Support (LTS) version.
+nvm install lts
 
-argh
+# 2. Tell Windows to use it (Switch to Admin if it errors).
+nvm use lts
+
+# 3. Validate.
+node -v
+npm -v
+
+```
